@@ -1,7 +1,5 @@
 # Django - проект
 
-Коммерческий проект для клиента 
-
 # Библиотеки
 Django, Pillow - Функционал backend-a 
 
@@ -13,7 +11,7 @@ Bootstrap5, Wowjs - Frontend инструменты
 
     python -m venv .venv
 
-Установить необходимые биболетки из файла `requirements.txt`
+Установить необходимые биболетки из файла `[requirements.txt](requirements.txt)`
 
     pip install -r requirements.txt
 
