@@ -15,6 +15,8 @@ Bootstrap5, Wowjs - Frontend инструменты
 
     pip install -r requirements.txt
 
+Создать файл `.env` на подобии `.env.template`
+
 Запустить сервер
 
     python manage.py runserver 
