@@ -1,0 +1,117 @@
+{% extends "second_base.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="main parallax"  style="background-image: url({% static 'images/back1.jpg' %});">
+    <div class="container">
+        <div class="title-container slideInDown">
+            Наши услуги
+        </div>
+        <div class="content-container">
+            <ul>
+                {% for service in services  %}
+                <li class="service-item"><div class="service-div-item"> <img src="{{ service.logo.logo.url  }}" height="50px" width="50px" alt=""> <a href="#{{ service.title }}" class="btn"> {{ service.second_title }}</a> </div></li>  
+                {% endfor %}
+                
+                
+                
+            </ul>
+        </div>
+        
+    </div>
+    </div>
+    <div class="main parallax" style="background-image: url({% static 'images/back3.jpg' %}); min-height:100vh;">
+    <div class="container">
+        <div class="title-container slideInDown">
+            Наши преимущества
+        </div>
+        <div class="content-cards">
+
+        {% for adv in advs  %}
+        <div class="content-card fade-in wow">
+            <div class="content-handler">
+                <div class="content-logo">
+                    <div class="content-logo-container">
+                        <img src="{{ adv.logo.logo.url }}" height="50px" width="50px" alt="">
+                    </div>
+                </div>
+                <div class="content-title">
+                    {{ adv.title }}
+                </div>
+                <div class="content-text">
+                    {{ adv.descr|linebreaksbr }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+      </div>
+        
+    </div>
+    </div>
+    {% for service in services  %}
+    <div class="service-container" id="{{ service.title }}">
+        <div class="service-title">
+            <div class="title-container slideInDown wow">
+                {{ service.title }}
+                
+            </div>
+            <div class="up-button">
+                <a href="#"><img src="{% static 'images/arrow.svg' %}" alt=""></a>
+            </div>
+            
+        </div>
+        <div class="service-info">
+            <div class="media-service-image">
+                <img src="{{ service.image.url }}" alt="">
+            </div>
+            <div class="service-description">
+                <div class="service-logo">
+                    <div class="service-logo-container">
+                <img src="{{ service.logo.logo.url }}" alt="">
+                    </div>
+                </div>
+                <div class="service-descr-info">
+                {{ service.description|linebreaks }}
+                <div class="btn-container">
+                    <a href="{% url 'second_app:contacts'%}" class="btn">Получить предложение</a>
+                </div>
+                </div>
+            </div>
+            <div class="image-handler">
+            <div class="service-image" style="background-image:url({{ service.image.url }})">
+                
+            </div>
+            </div>
+        </div>  
+    </div>
+    {% endfor %}
+        <div class="faq-container">
+            <div class="faq-main-handler wow fadeInUp ">
+                <div class="faq-title" id="faq">
+                    Часто задавыемые вопросы
+                </div>
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    {% for fq in faq  %}
+                      
+                    
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{forloop.counter}}" aria-expanded="false" aria-controls="flush-collapse{{forloop.counter}}">
+                          {{ fq.question }}
+                        </button>
+                      </h2>
+                      <div id="flush-collapse{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{forloop.counter}}" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">{{ fq.answer |safe|linebreaks}}</div>
+                      </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+{% endblock body %}

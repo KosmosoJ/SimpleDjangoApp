@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block main %}
+  
+    <div class="category-container">
+        <div class="category-info">
+            <div class="service-title"> {{ category.title }} </div>
+            <div class="service-short-descr">  {{ category.shor_description }}</div>
+        </div>
+        <div class="category-descr">
+            {{ category.description|capfirst }}
+            
+        </div>
+        <div class="category-service-container">
+            {% for service in category.services.all %}
+            <div class="category-service-info">
+                <div class="category-service-img"><img src="{{ service.image.url }}" alt=""></div>
+                <div class="category-service-title"> <a href="{% url 'service' service.pk%}"> {{ service.title }} </a></div>
+                <div class="category-service-description"> {{ service.description }} </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock main %}

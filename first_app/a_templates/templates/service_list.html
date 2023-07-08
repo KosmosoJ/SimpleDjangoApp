@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+    {% for service in service_list %}
+    <p> <a href="{% url 'service' service.pk %}">{{ service.title }}</a></p>
+    <p>{{ service.description }}</p>
+    <p>{{ service.short_description }}</p>
+    <p><img src='{{ service.image.url }}' alt="{{ service.title}} image", height="300px"></p>
+    <p> <input type="button", onclick="history.back()" value="Назад"></p>
+    {% endfor %}
+
+{% endblock body %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+
+{% block main %}
+    {% for project in projects %}
+    <p><a href="{% url 'project' project.pk%}">{{ project.title }}</a></p>
+    <p> {{ project.short_description }} </p>
+    <p> <img src="{{ project.image.url }}" alt="{{ project.title}} image" , height="300px"></p>
+    {% endfor %}
+
+{% endblock body %}
+

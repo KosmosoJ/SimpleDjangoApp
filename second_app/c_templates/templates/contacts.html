@@ -1,0 +1,28 @@
+{% extends "second_base.html" %}
+
+{% block body %}
+  <div class="contacts-container">
+    
+    <div class="contacts-info">
+      <h2>Контактная форма</h2>
+      <p>Заголовок <br></p>
+      
+      <p>Здесь форма</p>
+    </div>
+    <div class="contacts-handler">
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-handler">
+        {{ form.as_div }} 
+        </div>
+        <button type="submit">Отправить</button>
+      </form>
+      Поля помеченные * обязательны для заполнения!
+    </div>
+    <div class="map-handler">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10681.550842383896!2d37.62401834904608!3d55.7494780751695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a50b315e573%3A0xa886bf5a3d9b2e68!2z0JzQvtGB0LrQvtCy0YHQutC40Lkg0JrRgNC10LzQu9GM!5e0!3m2!1sru!2sru!4v1688814124734!5m2!1sru!2sru" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      
+    </div>
+
+  </div>
+{% endblock body %}

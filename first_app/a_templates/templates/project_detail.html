@@ -1,0 +1,32 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+BASE TITLE | {{ project.title }}
+{% endblock title %}
+
+{% block main %}
+
+<div> 
+    <div class="title-handler">
+    <h1>{{ project.title }}</h1>
+    
+    </div>
+    <div class="info-handler">
+        <div class="info">
+            <div class="info-descr">
+                {{ project.full_descr|safe}}
+                <div class="btn-container">
+                    <a href="{% url 'first_app:homepage'%}#{{ project.service.title }}"><button class="service-detail-btn-back btn-reset">Назад</button></a>
+                    <a href="{% url 'first_app:homepage'%}#contacts" > <button class="service-detail-btn-buy btn-reset">Купить</button></a>
+                </div>
+            </div>
+            <div class="image-handler">
+                <img src="{{ project.images.first.image.url}}" alt="{{project.title}} image">
+         
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock main %}

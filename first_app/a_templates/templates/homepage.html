@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+{% load static %}
+{% load range %}
+
+
+{% block main %}
+<section class="homepage-hero" id="homepage-hero">
+    <div class="additional-header">
+        <div class="additional-info">
+            Москва ул. Пустая д.44  <br>
+            тел. +7999999999, 999999999 <br>
+            e-mail: <a href="mailto:index@gmail.com">index@gmail.com</a>
+        </div>
+        <div class="additional-icons">
+            <div class="icon"> <a href="#"> <img src="{% static 'icons/whatsapp.webp'%}" alt=""></a></div>
+            <div class="icon"> <a href="#"> <img src="{% static 'icons/telegram.webp'%}" alt=""></a></div>
+            <div class="icon"><a href="#"> <img src="{% static 'icons/pinterest.webp'%}" alt=""></a></div>
+            <div class="icon"><a href="#"> <img src="{% static 'icons/vk.webp'%}" alt=""></a></div>
+            <div class="icon"><a href="#"> <img src="{% static 'icons/instagram.webp'%}" alt=""></a></div>
+        </div>
+    </div>
+
+    <div class="tech-support">
+        <a href="#"> <nobr>консультация/техподдержка</nobr> </a>
+    </div>
+
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                ЗАГОЛОВОК
+            </h1>
+        
+        </div>
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-indicators">
+                    
+                      
+                    
+                    {% for i in carousel%}
+                        {% if forloop.first %}
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter0 }}" class="active" aria-current="true" aria-label="Слайд для {{ i.pk }}"></button>      
+                    
+                        {% else %}
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter0 }}" aria-label="Слайд для {{ i.pk }}"></button>
+                        {% endif %}   
+                    
+                    {% endfor %}
+                    
+                  </div>
+                {% for item in carousel %}
+                {% if forloop.first %}
+                
+              <div class="carousel-item active" data-bs-interval="5000">
+                {% if item.news %}
+                    <a href="{% url 'first_app:news' item.news.pk%}"><button class="item-button">Подробнее</button></a>
+                {% endif %}
+                <img src="{{ item.image.url }}" class="item-img" alt="..." >
+                <div class="carousel-caption d-md-block">
+                  <h5>{{ item.title }}</h5>
+                  <p>{{ item.description }}</p>
+                </div>
+              </div>
+              {% else %}
+
+              <div class="carousel-item" data-bs-interval="5000">
+                {% if item.news %}
+                    <a href="{% url 'first_app:news' item.news.pk%}"><button class="item-button">Подробнее</button></a>
+                {% endif %}
+                <img src="{{ item.image.url }}" class="item-img"  alt="..." >
+                <div class="carousel-caption d-md-block">
+                  <h5>{{ item.title }}</h5>
+                  <p>{{ item.description }}</p>
+                </div>
+              </div>
+              {% endif %}
+              {% endfor %}
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Предыдущий</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Следующий</span>
+            </button>
+          </div>
+    </div>
+  </section>
+  
+
+{% for service in services %}
+{% if service.projects.all %}
+  
+{% if forloop.counter0 == 2 %}
+
+<div class="grid-container" id="{{ service.title }}">
+    <div class="service-info parallax-shadow">
+        
+    <div class="service-title" > <p class="typewriter wow">{{ service.title |upper}}</p> </div>
+
+    <div class="service-descr"> <p class="typewriter wow">{{ service.short_descr |upper}}</p>  </div>
+    </div>
+        <div class="article-grid">
+            <div class="services-container">
+            {% for project in service.projects.all %}
+                <div class="project-handler" style="background-image: url({{project.images.first.image.url}});">
+                    <a href="{% url 'first_app:project' project.pk %}"></a>
+                    <div class="card-text">
+                        <h3>
+                            <a href="{% url 'first_app:project' project.pk %}"> {{ project.title|capfirst }} </a>
+                        </h3>
+                        <p class="service-short-descr">
+                            {{ project.short_descr|capfirst }}
+                        </p>
+                        <div class="check_div">
+                            
+                            
+                            {{ project.descr }}
+                        </div>
+                        
+                    </div>
+                    <div id="linktoservice">
+                        <a href="{% url 'first_app:project' project.pk%}">Подробнее</a>
+                    </div>
+                </div>
+                            
+            {% endfor %}
+        </div>
+            <div class="service-full-descr">
+                <div class="email-handler" ><p id="green"><a href="#contacts">Письмо на сайте</a></p> <br>
+                <p id="cyan"><a href="mailto:index@mail.ru?subject=Письмо с сайта FIRST: {{ service.title }}">Почта</a></p></div>
+                <div> {{ service.descr|safe|capfirst|linebreaks}}</div>
+                
+            </div>
+            
+                <div class="gallery-container">
+                    <!-- Flickity HTML init -->
+                    <div class="gallery gallery-main" data-flickity='{"pageDots": false }'>
+                        {% for image in images  %}
+                        <div class="carousel-cell"><img src="{{image.image.url}}"/></div>
+                        {% endfor %}
+                        
+                    </div>
+                    
+                    <div class="gallery gallery-nav"
+                      data-flickity='{ "asNavFor": ".gallery-main", "contain": true, "pageDots": false }'>
+                      
+                      {% for image in images  %}
+                        <div class="carousel-cell"><img src="{{image.image.url}}"/></div>    
+                        {% endfor %}
+
+                    </div>
+                    
+                    </div><!-- /.container -->
+         
+            <div class="service-full-descr">
+                <p>
+                    ДОП ФОРМА
+ 
+                    <a href="{% url 'first_app:adv_form'%}">ЭТОЙ ФОРМОЙ</a> >>></p>
+            </div>
+        </div>
+    
+</div>
+{% else %}
+<div class="grid-container" id="{{ service.title }}">
+    <div class="service-info parallax-shadow">
+        
+    <div class="service-title" > <p class="typewriter wow">{{ service.title |upper}}</p> </div>
+        
+
+        
+    <div class="service-descr"> <p class="typewriter wow">{{ service.short_descr |upper}}</p>  </div>
+    </div>
+        <div class="article-grid">
+            <div class="services-container">
+            {% for project in service.projects.all %}
+                <div class="project-handler" style="background-image: url({{project.images.first.image.url}});">
+                    <a href="{% url 'first_app:project' project.pk %}"></a>
+                    <div class="card-text">
+                        <h3>
+                            <a href="{% url 'first_app:project' project.pk %}"> {{ project.title|capfirst }} </a>
+                        </h3>
+                        <p class="service-short-descr">
+                            {{ project.short_descr|capfirst }}
+                        </p>
+                        <div class="check_div">
+                            
+                            
+                            {{ project.descr }}
+                        </div>
+                        
+                    </div>
+                    <div id="linktoservice">
+                        <a href="{% url 'first_app:project' project.pk%}">Подробнее</a>
+                    </div>
+                </div>
+                            
+            {% endfor %}
+        </div>
+            <div class="service-full-descr">
+                <div class="email-handler" ><p id="green"><a href="#contacts">Письмо на сайте</a></p> <br>
+                    <p id="cyan"><a href="mailto:index@gmail.com?subject=Письмо с сайта FIRST: {{ service.title }}">Почта</a></p></div>
+                    <div> {{ service.descr|safe|capfirst|linebreaks}}</div>
+                
+            </div>
+        </div>
+    
+</div>
+{% endif %}
+{% endif %}
+{% endfor %}
+
+
+
+<div class="pre-footer-info">
+    <div class="contacts-pre-footer parallax-shadow">
+        <div class="contacts" id="contacts"><h3>Контакты</h3></div>
+    </div>
+    <div class="pre-footer-container">
+       <div class="map-handler"> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10681.550842383896!2d37.62401834904608!3d55.7494780751695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a50b315e573%3A0xa886bf5a3d9b2e68!2z0JzQvtGB0LrQvtCy0YHQutC40Lkg0JrRgNC10LzQu9GM!5e0!3m2!1sru!2sru!4v1688814124734!5m2!1sru!2sru" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    <div class="contact-columns">
+        
+        <div class="contact-column" >
+            <span>Форма обратной связи</span>
+            <form method="post" action="{% url 'first_app:homepage'%}#contacts">
+                {% csrf_token %}
+
+                {{ form.as_div }}
+
+            
+                <button type="submit" class="form-btn">Отправить</button>
+                
+            </form>
+            
+
+            {% if success_message %}
+              <p id="message">{{ success_message }}</p>
+            {% endif %}
+            <script>
+                setTimeout(function(){
+                    document.getElementById('message').style.display = 'none';
+                }, 5000);
+                </script>
+        </div>
+        <div class="contact-column">
+            <span>Центральный офис</span>
+            <p>г. Москва <br>
+
+                ул. Пустая д.44 
+                
+                40000000 <br>
+                
+                 
+                
+                index@mail.ru <br>
+                
+                Телефон: 79999999</p>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock main %}

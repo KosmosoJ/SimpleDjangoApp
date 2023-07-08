@@ -1,0 +1,55 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+BASE TITLE | {{ news.title }}
+{% endblock title %}
+
+{% block meta-descr %}
+    {{ news.description}}
+{% endblock meta-descr %}
+
+{% block main %}
+
+<div>
+              
+    <div class="title-handler">
+    <h1>{{ news.title }}</h1>
+    
+    </div>
+    <div class="request-handler">
+        <div class="request">
+            <div class="request-descr">
+                <span>{{ news.description }}
+                    </span>
+
+            </div>
+            <div class="your-project" id="form">
+                <p>Форма заявки</p>
+            </div>
+            <div class="adv-form">
+            <form method="post" action="{% url 'first_app:news' news.pk %}#success_message" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_div }}
+                <button type="submit" class="form-btn">Отправить</button>
+            </form>
+            </div>
+            {% if adv_success_message %}
+              
+            
+            
+            <div id="success_message">
+                {{ adv_success_message }}
+            </div>
+            {% endif %}
+            <script>
+                setTimeout(function(){
+                    document.getElementById('success_message').style.display = 'none';
+                }, 5000);
+                </script>
+
+        </div>
+    </div>
+    </div>
+
+{% endblock main %}

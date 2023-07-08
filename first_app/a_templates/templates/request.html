@@ -1,0 +1,67 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+BASE TITLE | Ваши идеи
+{% endblock title %}
+
+
+
+{% block main %}
+
+<div>
+              
+    <div class="title-handler">
+    <h1>Страница отправки запроса</h1>
+    
+    </div>
+    <div class="request-handler">
+        <div class="request">
+            <div class="request-descr">
+                <span>Для того чтобы не ограничивать Вас только вариантами представленной продукции, которая уже была выполнена силами нашего предприятия (галерея работ ниже), мы предлагаем Вам присылать заявки с произвольным описанием Ваших текущих потребностей, подходящих к одной из перечисленных в форме обратной связи категорий. <br> <br>
+                    После получения и рассмотрения Вашей заявки, мы, в короткие сроки, сообщим Вам методы решения, сроки выполнения и стоимость Вашего проекта.
+                    </span>
+                    <div class="gallery-container">
+                        <!-- Flickity HTML init -->
+                        <div class="gallery gallery-main" data-flickity='{"pageDots": false }'>
+                            {% for image in images  %}
+                            <div class="carousel-cell"><img src="{{image.image.url}}"/></div>
+                            {% endfor %}
+                            
+                        </div>
+                        
+                        <div class="gallery gallery-nav"
+                          data-flickity='{ "asNavFor": ".gallery-main", "contain": true, "pageDots": false }'>
+                          
+                          {% for image in images  %}
+                            <div class="carousel-cell"><img src="{{image.image.url}}"/></div>    
+                            {% endfor %}
+    
+                        </div>
+                        
+                        </div><!-- /.container -->
+            </div>
+            <div class="your-project" id="form">
+                <p>Ваш проект</p>
+            </div>
+            <div class="adv-form">
+            <form method="post" action="{%url 'first_app:adv_form'%}#form" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_div }}
+                <button type="submit" class="form-btn">Отправить</button>
+            </form>
+            </div>
+            <div id="success_message">
+                {{ adv_success_message }}
+            </div>
+            <script>
+                setTimeout(function(){
+                    document.getElementById('success_message').style.display = 'none';
+                }, 5000);
+                </script>
+
+        </div>
+    </div>
+    </div>
+
+{% endblock main %}
