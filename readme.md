@@ -1,5 +1,7 @@
 # Django - проект
 
+Приложение для компании
+
 # Библиотеки
 Django, Pillow - Функционал backend-a 
 
@@ -22,3 +24,8 @@ Bootstrap5, Wowjs - Frontend инструменты
     python manage.py runserver 
     или
     python manage.py runserver 0.0.0.0:8000
+
+
+![Иллюстрация проекта](src/1.png)![](src/2.png)
+
+Данный репозиторий очищенная версия проекта
